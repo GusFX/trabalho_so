@@ -1,4 +1,4 @@
-import cpu_interrupcao as ci
+from cpu_interrupcao import CPUInterrupcao
 
 class CPUEstado(object):
     """
@@ -6,13 +6,19 @@ class CPUEstado(object):
     """
     pc = 0
     acumulador = 0
-    interrupcao = ci.CPUInterrupcao()
+    interrupcao = CPUInterrupcao()
 
-def get_modo(self):
-    """Retorna modo de interrupcao da CPU"""
-    return self.interrupcao.estado_atual
+    def get_modo(self):
+        """Retorna modo de interrupcao da CPU"""
+        return self.interrupcao.estado_atual
 
-def set_modo_normal(self):
-    if self.interrupcao.estado_atual != ci.NORMAL:
-        self.interrupcao.estado_atual = ci.NORMAL
-        self.interrupcao.pc += 1
+    def set_modo_normal(self):
+        if self.interrupcao.estado_atual != CPUInterrupcao.NORMAL:
+            self.interrupcao.estado_atual = CPUInterrupcao.NORMAL
+            self.interrupcao.pc += 1
+
+    def set_modo_ilegal(self):
+        self.interrupcao.estado_atual = CPUInterrupcao.INSTRUCAO_ILEGAL
+
+    def set_modo_violacao(self):
+        self.interrupcao.estado_atual = CPUInterrupcao.VIOLACAO_MEM

@@ -7,7 +7,7 @@ class CPU(object):
     """
 
     #=========================== Execucao de instrucoes ========================#
-    
+
     def CARGI(self, n):
         self.estado.acumulador = n
 
@@ -46,7 +46,7 @@ class CPU(object):
     instrucoes = {"CARGI": CARGI, "CARGM":CARGM, "CARGX":CARGX, "ARMM":ARMM, "ARMX":ARMX, "SOMA":SOMA, "NEG":NEG, "DESVZ":DESVZ}
 
 
-#====================================================================#
+    #====================================================================#
 
 
     estado = ce.CPUEstado()
@@ -80,7 +80,7 @@ class CPU(object):
     def instucao(self):
         """Obtem instrucao do PC"""
         pc = self.estado.pc
-        return mem_prog[pc]
+        return self.mem_prog[pc]
 
 
     def salva_estado(self):
@@ -103,10 +103,18 @@ class CPU(object):
 
         pc = self.estado.pc
         instrucao_atual = self.mem_prog[pc]
-        inst,arg = instrucao_atual.split()
-        
 
-        self.instrucoes[0][inst](self, arg)
+        try:
+            inst,arg = instrucao_atual.split()
+        except ValueError: 
+            inst = instrucao_atual
+            arg = 0
+
+        if inst in self.instrucoes:
+            self.instrucoes[inst](self, int(arg))
+            self.estado.pc += 1
+        else:
+            self.estado.set_modo_ilegal()
 
 
 
