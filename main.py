@@ -2,7 +2,9 @@ import cpu
 
 def main():
     my_cpu = cpu.CPU()
-    print(my_cpu.estado.interrupcao.estado_atual)
+
+    my_cpu.altera_programa(["CARGI 4"])
+    my_cpu.executa()    
 
 
 if __name__ == '__main__':
