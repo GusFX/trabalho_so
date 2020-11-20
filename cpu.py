@@ -6,16 +6,53 @@ class CPU(object):
     docstring
     """
 
+    #=========================== Execucao de instrucoes ========================#
+    
     def CARGI(self, n):
         self.estado.acumulador = n
-        print(n)
+
+    def CARGM(self, n):
+        mem = self.mem_dados[n]
+        self.estado.acumulador = mem
+
+    def CARGX(self, n):
+        mem = self.mem_dados[n]
+        mem = self.mem_dados[mem]
+        self.estado.acumulador = mem
+    
+    def ARMM(self, n):
+        ac = self.estado.acumulador
+        self.mem_dados[n] = ac
+
+    def ARMX(self, n):
+        ac = self.estado.acumulador
+        mem = self.mem_dados[n]
+        self.mem_dados[mem] = ac
+    
+    def SOMA(self, n):
+        mem = self.mem_dados[n]
+        self.estado.acumulador += mem
+
+    def NEG(self, n):
+        self.estado.acumulador = -self.estado.acumulador
+
+
+    def DESVZ(self, n):
+        ac = self.estado.acumulador
+        if ac == 0:
+            estado.pc = n 
+
+
+    instrucoes = {"CARGI": CARGI, "CARGM":CARGM, "CARGX":CARGX, "ARMM":ARMM, "ARMX":ARMX, "SOMA":SOMA, "NEG":NEG, "DESVZ":DESVZ}
+
+
+#====================================================================#
 
 
     estado = ce.CPUEstado()
     
     mem_prog = []
     mem_dados = []
-    instrucoes = {"CARGI": CARGI, "CARGM":CARGM, "CARGX":CARGX, "ARMM":ARMM, "ARMX":ARMX, "SOMA":SOMA, "NEG":NEG, "DESVZ":DESVZ}
 
     def __init__(self):
         pass
@@ -72,6 +109,5 @@ class CPU(object):
         self.instrucoes[0][inst](self, arg)
 
 
-    #=========================== Execucao de instrucoes ========================#
 
     
