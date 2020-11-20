@@ -1,4 +1,4 @@
-from cpu_interrupcao import CPUInterrupcao
+import cpu_interrupcao as ci
 
 class CPUEstado(object):
     """
@@ -6,4 +6,4 @@ class CPUEstado(object):
     """
     pc = 0
     acumulador = 0
-    interrupcao = CPUInterrupcao()
+    interrupcao = ci.CPUInterrupcao()

@@ -1,8 +1,8 @@
-from cpu import CPU
+import cpu 
 
 def main():
-    my_cpu = CPU()
-    
+    my_cpu = cpu.CPU()
+    print(my_cpu.estado.interrupcao.estado_atual)
 
 
 if __name__ == '__main__':
